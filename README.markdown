@@ -1,3 +1,7 @@
+A simple "Hello World" sinatra application ready for deployment to [Heroku](http://heroku.com).
+
+This application uses the newer "Bamboo" Heroku stack and runs on either REE 1.8.7 or MRI 1.9.1
+
 Prerequisites
 -------------
 
@@ -7,7 +11,7 @@ Prerequisites
 Usage
 -----
 
-    git clone git@github.com:jpatterson/heroku-sinatra-template.git YOUR_PROJECT_NAME --stack bamboo-ree-1.8.7
+    git clone git@github.com:jpatterson/heroku-sinatra-template.git YOUR_PROJECT_NAME --stack bamboo-mri-1.9.1
     cd YOUR_PROJECT_NAME
     heroku create YOUR_PROJECT_NAME
     git remote add heroku git@heroku.com:YOUR_PROJECT_NAME.git
