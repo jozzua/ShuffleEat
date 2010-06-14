@@ -11,9 +11,9 @@ Prerequisites
 Usage
 -----
 
-    git clone git@github.com:jpatterson/heroku-sinatra-template.git YOUR_PROJECT_NAME --stack bamboo-mri-1.9.1
+    git clone git@github.com:jpatterson/heroku-sinatra-template.git YOUR_PROJECT_NAME
     cd YOUR_PROJECT_NAME
-    heroku create YOUR_PROJECT_NAME
-    git remote add heroku git@heroku.com:YOUR_PROJECT_NAME.git
+    heroku create YOUR_PROJECT_NAME --stack bamboo-mri-1.9.1
     git remote rm origin
     git push heroku master
+    heroku open
