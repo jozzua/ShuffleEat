@@ -1,6 +1,6 @@
 A simple "Hello World" sinatra application ready for deployment to [Heroku](http://heroku.com).
 
-This application uses the newer "Bamboo" Heroku stack and runs on either REE 1.8.7 or MRI 1.9.1
+This application uses the newer "Bamboo" Heroku stack and runs on either REE 1.8.7 or MRI 1.9.1. You can read more about Heroku stacks [here](http://docs.heroku.com/stack).
 
 Prerequisites
 -------------
