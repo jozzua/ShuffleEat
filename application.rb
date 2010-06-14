@@ -9,5 +9,5 @@ configure :production do
 end
 
 get '/' do
-  "Hello World"
+  erb :index
 end
