@@ -8,7 +8,5 @@ rescue LoadError
   Bundler.setup
 end
 
-## There is no need to set directories here anymore;
-## Just run the application
-
+require 'application'
 run Sinatra::Application
