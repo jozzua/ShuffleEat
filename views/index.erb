@@ -1,6 +1,8 @@
 <!DOCTYPE html>  
 <html>  
   <head>  
+    <title>EatShuffle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/bootstrap-responsive.css" rel="stylesheet">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
@@ -71,7 +73,7 @@
       function handle_geolocation_query(position){  
         lon = position.coords.latitude;
         lat = position.coords.longitude;
-        var rad = Math.floor((Math.random()*500)+100); 
+        var rad = Math.floor((Math.random()*300)+100); 
 
         /* Query foursquare API for venue recommendations near the current location. */
         $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lon +',' +lat +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=Food&radius='+ rad, function(data) {
@@ -98,20 +100,23 @@
       </div>
     </div>
     <hr>
-    <div class="container">  
-      <table class="table-striped">
-        <thead>
-          <tr>
-            <th> </th>
-          </tr>
 
-          <tbody id="names">
-         </tbody>
-        </table>
+    <div class="container">  
+      <div class="row">
+
+        <table class="table-striped">
+          <thead>
+            <tr>
+              <th> </th>
+            </tr>
+
+            <tbody id="names">
+            </tbody>
+          </table>
 
           <button id="btnShfl" >Shuffle</button>  
-          <p>*data from Foursquare</p>
-      </div>  
+        </div>  
+      </div>
 
     </body>  
   </html>  
