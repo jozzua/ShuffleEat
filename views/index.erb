@@ -78,12 +78,12 @@
         var rad = Math.floor((Math.random()*300)+100); 
 
         /* Query foursquare API for venue recommendations near the current location. */
-        $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lon +',' +lat +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=Food&radius='+ rad, function(data) {
+        $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lon +',' +lat +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=food&radius='+ rad, function(data) {
           venues = data['response']['groups'][0]['items'];
           /*  Find nearest venues. */
           for (var i = 0; i < 3; i++) {
             entry = venues[Math.floor(Math.random()*venues.length)];
-            content = '<h3>' + entry['venue']['name']  + ', ' + entry['venue']['location']['address']  + '</h3>';
+            content =  '<h4>' + entry['venue']['name']  + '</h4> ' + '<p>' + entry['venue']['location']['address']  + '</p>' + '<hr/>';
             $(content).appendTo("#names");
 
             $("#ajaxLoader").hide();
@@ -112,7 +112,7 @@
           <p>I'm getting my AJAX on!</p>
         </div>
 
-
+        <hr/>
         <div id="names"></div>
 
         <button id="btnShfl" >Shuffle</button>  
