@@ -6,16 +6,17 @@
     <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/bootstrap-responsive.css" rel="stylesheet">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://malsup.github.com/jquery.blockUI.js"></script>
     <script type="text/javascript" src="https://raw.github.com/codepo8/YQL-Geo-Library/master/yqlgeo.js"></script>
     <script>  
       jQuery(window).ready(function(){  
         jQuery(initiate_geolocation);
+        $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
         jQuery("#btnShfl").click(function() {
           location.reload();
         })
       });  
 
-      $("#ajaxLoader").show();
 
       function initiate_geolocation() {  
         if (navigator.geolocation)  
@@ -86,7 +87,6 @@
             content =  '<h4>' + entry['venue']['name']  + '</h4> ' + '<p>' + entry['venue']['location']['address']  + '</p>' + '<hr/>';
             $(content).appendTo("#names");
 
-            $("#ajaxLoader").hide();
           }
         })
       };  
@@ -106,12 +106,6 @@
 
     <div class="container">  
       <div class="row">
-
-        <div id="ajaxLoader" style="display:none">
-          <h2>Please wait</h2>
-          <p>I'm getting my AJAX on!</p>
-        </div>
-
         <hr/>
         <div id="names"></div>
 
