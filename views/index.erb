@@ -1,1 +1,98 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>  
+<html>  
+  <head>  
+    <link  href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/codepo8/YQL-Geo-Library/master/yqlgeo.js"></script>
+    <script>  
+      jQuery(window).ready(function(){  
+        jQuery(initiate_geolocation);
+        jQuery("#btnShfl").click(function() {
+                          location.reload();
+                                      })
+      });  
+
+      function initiate_geolocation() {  
+        if (navigator.geolocation)  
+        {  
+          navigator.geolocation.getCurrentPosition(handle_geolocation_query, handle_errors);  
+        }  
+        else  
+        {  
+          yqlgeo.get('visitor', normalize_yql_response);  
+        }  
+      }  
+
+      function handle_errors(error)  
+      {  
+        switch(error.code)  
+        {  
+          case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
+          break;  
+
+          case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
+          break;  
+
+          case error.TIMEOUT: alert("retrieving position timedout");  
+          break;  
+
+          default: alert("unknown error");  
+          break;  
+        }  
+      }  
+
+      function normalize_yql_response(response)  
+      {  
+        if (response.error)  
+        {  
+          var error = { code : 0 };  
+          handle_error(error);  
+          return;  
+        }  
+
+        var position = {  
+          coords :  
+          {  
+            latitude: response.place.centroid.latitude,  
+            longitude: response.place.centroid.longitude  
+          },  
+          address :  
+          {  
+            city: response.place.locality2.content,  
+            region: response.place.admin1.content,  
+            country: response.place.country.content  
+          }  
+        };  
+
+        handle_geolocation_query(position);  
+      } 
+
+      function handle_geolocation_query(position){  
+        lon = position.coords.latitude;
+        lat = position.coords.longitude;
+        var rad = Math.floor((Math.random()*500)+100); 
+
+        /* Query foursquare API for venue recommendations near the current location. */
+        $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lon +',' +lat +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=Food&radius='+ rad, function(data) {
+          venues = data['response']['groups'][0]['items'];
+          /*  Find nearest venues. */
+          for (var i = 0; i < 3; i++) {
+            entry = venues[Math.floor(Math.random()*venues.length)];
+            content = '<li>' + entry['venue']['name']  + ', ' + entry['venue']['location']['address']  + '</li>';
+            $(content).appendTo("#names");
+                 
+          }
+          })
+        };  
+
+
+      </script>  
+    </head>  
+    <body>  
+      <div>  
+        <div id="names"></div>
+        <button id="btnShfl" >Shuffle</button>  
+      </div>  
+
+    </body>  
+  </html>  
