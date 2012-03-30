@@ -83,7 +83,7 @@
           /*  Find nearest venues. */
           for (var i = 0; i < 3; i++) {
             entry = venues[Math.floor(Math.random()*venues.length)];
-            content = '<tr><td>' + entry['venue']['name']  + ', ' + entry['venue']['location']['address']  + '</td></tr>';
+            content = '<h3>' + entry['venue']['name']  + ', ' + entry['venue']['location']['address']  + '</h3>';
             $(content).appendTo("#names");
 
             $("#ajaxLoader").hide();
@@ -108,23 +108,17 @@
       <div class="row">
 
         <div id="ajaxLoader" style="display:none">
-              <h2>Please wait</h2>
-                  <p>I'm getting my AJAX on!</p>
-                </div>
+          <h2>Please wait</h2>
+          <p>I'm getting my AJAX on!</p>
+        </div>
 
-        <table class="table-striped">
-          <thead>
-            <tr>
-              <th> </th>
-            </tr>
 
-            <tbody id="names">
-            </tbody>
-          </table>
+        <div id="names"></div>
 
-          <button id="btnShfl" >Shuffle</button>  
-        </div>  
-      </div>
+        <button id="btnShfl" >Shuffle</button>  
 
-    </body>  
-  </html>  
+      </div>  
+    </div>
+
+  </body>  
+</html>  
