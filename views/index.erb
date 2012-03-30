@@ -1,15 +1,16 @@
 <!DOCTYPE html>  
 <html>  
   <head>  
-    <link  href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap-responsive.css" rel="stylesheet">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://raw.github.com/codepo8/YQL-Geo-Library/master/yqlgeo.js"></script>
     <script>  
       jQuery(window).ready(function(){  
         jQuery(initiate_geolocation);
         jQuery("#btnShfl").click(function() {
-                          location.reload();
-                                      })
+          location.reload();
+        })
       });  
 
       function initiate_geolocation() {  
@@ -78,20 +79,38 @@
           /*  Find nearest venues. */
           for (var i = 0; i < 3; i++) {
             entry = venues[Math.floor(Math.random()*venues.length)];
-            content = '<li>' + entry['venue']['name']  + ', ' + entry['venue']['location']['address']  + '</li>';
+            content = '<tr><td>' + entry['venue']['name']  + ', ' + entry['venue']['location']['address']  + '</td></tr>';
             $(content).appendTo("#names");
-                 
+
           }
-          })
-        };  
+        })
+      };  
 
 
-      </script>  
-    </head>  
-    <body>  
-      <div>  
-        <div id="names"></div>
-        <button id="btnShfl" >Shuffle</button>  
+    </script>  
+  </head>  
+  <body>  
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">EatShuffle</a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="container">  
+      <table class="table-striped">
+        <thead>
+          <tr>
+            <th> </th>
+          </tr>
+
+          <tbody id="names">
+         </tbody>
+        </table>
+
+          <button id="btnShfl" >Shuffle</button>  
+          <p>*data from Foursquare</p>
       </div>  
 
     </body>  
