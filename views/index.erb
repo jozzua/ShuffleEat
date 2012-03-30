@@ -74,17 +74,23 @@
       } 
 
       function handle_geolocation_query(position){  
-        lon = position.coords.latitude;
-        lat = position.coords.longitude;
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
         var rad = Math.floor((Math.random()*300)+100); 
 
         /* Query foursquare API for venue recommendations near the current location. */
-        $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lon +',' +lat +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=food&radius='+ rad, function(data) {
+        $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lat +',' +lon +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=food', function(data) {
           venues = data['response']['groups'][0]['items'];
           /*  Find nearest venues. */
           for (var i = 0; i < 3; i++) {
             entry = venues[Math.floor(Math.random()*venues.length)];
-            content =  '<h4>' + entry['venue']['name']  + '</h4> ' + '<p>' + entry['venue']['location']['address']  + '</p>' + '<hr/>';
+            content = 
+            '<a href="http://maps.google.com/?q=' + entry['venue']['location']['lat']  +',' + entry['venue']['location']['lng'] + '">'+
+            '<h4>' + entry['venue']['name']  + '</h4> ' + '</a>' + 
+          '<p>' + entry['venue']['location']['address']  + '</p>' + '<hr/>';
+
+            
+
             $(content).appendTo("#names");
 
           }
