@@ -100,7 +100,11 @@
             content = 
             '<a href="http://maps.google.com/?q=' + entry['venue']['location']['lat']  +',' + entry['venue']['location']['lng'] + '">'+
               '<h4>' + entry['venue']['name']  + '</h4> ' + '</a>' + 
-            '<p>' + entry['venue']['location']['address']  + '</p>' + '<hr/>';
+            '<p>' + entry['venue']['location']['address']  + ' ' 
+                 /* + entry['venue']['location']['crossStreet']  + ' ' 
+                  + entry['venue']['contact']['formattedPhone']  + ' ' */
+                  + entry['venue']['location']['distance']  + 'm'+
+            '</p><hr/>';
 
             $(content).appendTo("#names");
 
