@@ -1,6 +1,6 @@
       jQuery(window).ready(function(){  
         $(initiate_geolocation);
-        $.blockUI({ message: '<h1><img src="busy.gif" /> Just a moment...</h1>' });
+        $.blockUI({ message: '<h3><img src="busy.gif" /> Shuffling... </h3><p>(Please ALLOW the location request.)' });
         $("#btnShfl").click(function() {
           location.reload();
         })
@@ -22,16 +22,16 @@
       {  
         switch(error.code)  
         {  
-          case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
+          case error.PERMISSION_DENIED: alert("Your browser did not share geolocation data. Please allow this site on your browser settings.");  
           break;  
 
-          case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
+          case error.POSITION_UNAVAILABLE: alert("Could not detect current position. Check your browser settings. Allow this site to get your location.");  
           break;  
 
-          case error.TIMEOUT: alert("retrieving position timedout");  
+          case error.TIMEOUT: alert("Retrieving position timed out. Try reloading or check your browser settings.");  
           break;  
 
-          default: alert("unknown error");  
+          default: alert("Oops. Something went wrong. We can't detect your location. ");  
           break;  
         }  
       }  
@@ -77,8 +77,6 @@
             '<a href="http://maps.google.com/?q=' + entry['venue']['location']['lat']  +',' + entry['venue']['location']['lng'] + '">'+
               '<h4>' + entry['venue']['name']  + '</h4> ' + '</a>' + 
             '<p>' + entry['venue']['location']['address']  + '</p>' + '<hr/>';
-
-
 
             $(content).appendTo("#names");
             $.unblockUI();
