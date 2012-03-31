@@ -79,11 +79,12 @@
             '<p>' + entry['venue']['location']['address']  + '</p>' + '<hr/>';
 
             $(content).appendTo("#names");
+
             $.unblockUI();
 
           }
         })
-        .error(function() { alert("error: could not connect to server"); })
+        .error(function() { alert("Hey I could not connect to server. Try reloading."); })
       };  
 
 
