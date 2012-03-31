@@ -34,6 +34,7 @@
           default: alert("Oops. Something went wrong. We can't detect your location. ");  
           break;  
         }  
+            $.unblockUI();
       }  
 
       function normalize_yql_response(response)  
@@ -62,17 +63,40 @@
         handle_geolocation_query(position);  
       } 
 
+
+(function($){
+    $.fn.shuffle = function() {
+          return this.each(function(){
+                  var items = $(this).children();
+                        return (items.length)
+                    ? $(this).html($.shuffle(items))
+                    : this;
+              });
+            }
+     
+      $.shuffle = function(arr) {
+            for(
+                    var j, x, i = arr.length; i;
+                          j = parseInt(Math.random() * i),
+                                x = arr[--i], arr[i] = arr[j], arr[j] = x
+                                    );
+                return arr;
+                  }
+})(jQuery);
+
+
       function handle_geolocation_query(position){  
         lat = position.coords.latitude;
         lon = position.coords.longitude;
-        var rad = Math.floor((Math.random()*300)+100); 
+        var rad = Math.floor((Math.random()*500)+100); 
 
         /* Query foursquare API for venue recommendations near the current location. */
         $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lat +',' +lon +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=food', function(data) {
           venues = data['response']['groups'][0]['items'];
           /*  Find nearest venues. */
+            $.shuffle(venues);
           for (var i = 0; i < 3; i++) {
-            entry = venues[Math.floor(Math.random()*venues.length)];
+            entry = venues[i];
             content = 
             '<a href="http://maps.google.com/?q=' + entry['venue']['location']['lat']  +',' + entry['venue']['location']['lng'] + '">'+
               '<h4>' + entry['venue']['name']  + '</h4> ' + '</a>' + 
@@ -80,10 +104,10 @@
 
             $(content).appendTo("#names");
             $.unblockUI();
-
           }
+
         })
-        .error(function() { alert("error: could not connect to server"); })
+        .error(function() { alert("Error: could not connect to server"); })
       };  
 
 
