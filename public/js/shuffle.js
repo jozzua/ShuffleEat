@@ -103,7 +103,7 @@
             '<p>' + entry['venue']['location']['address']  + ' ' 
                  /* + entry['venue']['location']['crossStreet']  + ' ' 
                   + entry['venue']['contact']['formattedPhone']  + ' ' */
-                  + entry['venue']['location']['distance']  + 'm'+
+                  + '(' + entry['venue']['location']['distance']  + 'm)'+
             '</p><hr/>';
 
             $(content).appendTo("#names");
