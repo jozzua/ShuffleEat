@@ -1,6 +1,6 @@
       jQuery(window).ready(function(){  
         $(initiate_geolocation);
-        $.blockUI({ message: '<h3><img src="busy.gif" /> Shuffling... </h3><p>(Please ALLOW the location request.)' });
+        $.blockUI({ message: '<img src="busy.gif" /> <h5>Shuffling... </h5><p>(Please ALLOW the location request.)' });
         $("#btnShfl").click(function() {
           location.reload();
         })
@@ -84,6 +84,19 @@
                   }
 })(jQuery);
 
+           function valueOrDefault(def) {
+             var result = ' ';
+                  if (def != undefined) {
+                    result = def;
+                    }
+                    else
+                    {
+                    result = '';
+                    }
+                    return result;
+                 
+            };
+
 
       function handle_geolocation_query(position){  
         lat = position.coords.latitude;
@@ -97,12 +110,13 @@
             $.shuffle(venues);
           for (var i = 0; i < 3; i++) {
             entry = venues[i];
+            
             content = 
             '<a href="http://maps.google.com/?q=' + entry['venue']['location']['lat']  +',' + entry['venue']['location']['lng'] + '">'+
               '<h4>' + entry['venue']['name']  + '</h4> ' + '</a>' + 
-            '<p>' + entry['venue']['location']['address']  + ' ' 
-                 /* + entry['venue']['location']['crossStreet']  + ' ' 
-                  + entry['venue']['contact']['formattedPhone']  + ' ' */
+            '<p>' + valueOrDefault(entry['venue']['location']['address'])  + ' ' 
+                  + valueOrDefault(entry['venue']['location']['crossStreet'])  + ' ' 
+//                  + entry['venue']['contact']['formattedPhone']  + ' '
                   + '(' + entry['venue']['location']['distance']  + 'm)'+
             '</p><hr/>';
 
