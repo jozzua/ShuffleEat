@@ -1,13 +1,16 @@
       jQuery(window).ready(function(){  
         $(initiate_geolocation);
-        $.blockUI({ message: '<img src="busy.gif" /> <h5>Shuffling... </h5><p>(Please ALLOW the location request.)' });
+        $.blockUI({ message: '<img src="busy.gif" /> <h5>Shuffling... </h5><p>(Please ALLOW the location request.)</p>' });
         $("#btnShfl").click(function() {
-          location.reload();
+          randomThree();
         })
       });  
 
 
       function initiate_geolocation() {  
+        
+        rad = $('#amount').val();
+
         if (navigator.geolocation)  
         {  
           navigator.geolocation.getCurrentPosition(handle_geolocation_query, handle_errors);  
@@ -16,6 +19,8 @@
         {  
           yqlgeo.get('visitor', normalize_yql_response);  
         }  
+       
+        
       }  
 
       function handle_errors(error)  
@@ -60,7 +65,7 @@
           }  
         };  
 
-        handle_geolocation_query(position);  
+        handle_geolocation_query(position, rad);  
       } 
 
 
@@ -94,39 +99,47 @@
                     result = '';
                     }
                     return result;
-                 
             };
 
+ 
+          function randomThree(){
+          $("#names").shuffle();
+          $("#names venue-item").hide();
+          for (var i = 1; i <  4; i++) {
+          $("#names venue-item:nth-child(" + i + ")").show();
+          }};
 
       function handle_geolocation_query(position){  
         lat = position.coords.latitude;
         lon = position.coords.longitude;
-        var rad = Math.floor((Math.random()*500)+100); 
+        yourlocation = "<p> Your Location:" + lon + ' longitude, ' + lat + " latitude</p>"
+        $("#yourLocation p").replaceWith(yourlocation);
+ 
 
         /* Query foursquare API for venue recommendations near the current location. */
-        $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lat +',' +lon +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=food', function(data) {
+        $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lat +',' +lon +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=food&radius=' + rad, function(data) {
           venues = data['response']['groups'][0]['items'];
           /*  Find nearest venues. */
             $.shuffle(venues);
-          for (var i = 0; i < 3; i++) {
+          for (var i = 0; i < venues.length; i++) {
+
             entry = venues[i];
-            
             content = 
-            '<a href="http://maps.google.com/?q=' + entry['venue']['location']['lat']  +',' + entry['venue']['location']['lng'] + '">'+
+            '<venue-item><a href="http://maps.google.com/?q=' + entry['venue']['location']['lat']  +',' + entry['venue']['location']['lng'] + '">'+
               '<h4>' + entry['venue']['name']  + '</h4> ' + '</a>' + 
             '<p>' + valueOrDefault(entry['venue']['location']['address'])  + ' ' 
                   + valueOrDefault(entry['venue']['location']['crossStreet'])  + ' ' 
-//                  + entry['venue']['contact']['formattedPhone']  + ' '
+                  + valueOrDefault(entry['venue']['contact']['formattedPhone'])  + ' '
                   + '(' + entry['venue']['location']['distance']  + 'm)'+
-            '</p><hr/>';
-
+            '</p><hr/></venue-item>';
             $(content).appendTo("#names");
-
+            randomThree();
             $.unblockUI();
           }
 
         })
         .error(function() { alert("Hey I could not connect to server. Try reloading."); })
+         
      };  
 
 

@@ -8,10 +8,30 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../js/shuffle.js"></script>
+    <link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/css" media="all">
     <script type="text/javascript" src="http://malsup.github.com/jquery.blockUI.js"></script>
     <script type="text/javascript" src="https://raw.github.com/codepo8/YQL-Geo-Library/master/yqlgeo.js"></script>
-    
+    <script>
+      $(function() {
+        $( "#slider" ).slider({
+          value:500,
+          min: 0,
+          max: 1000,
+          step: 100,
+          stop: function( event, ui ) {
+            $( "#amount" ).val( ui.value);
+        $.blockUI({ message: '<img src="busy.gif" /> <h5>Shuffle Shuffle Shuffle... </h5>' });
+            $(initiate_geolocation);
+          }
+        });
+        $( "#amount" ).val($( "#slider" ).slider( "value" ));
+      });
+    </script>
+
   </head>  
+  <style>
+      #demo-frame > div.demo { padding: 10px !important; };
+       </style>
   <body>  
     <div id="topBar" class="container">
       <div class="row">
@@ -27,8 +47,23 @@
         <div id="names"></div>
 
         <button id="btnShfl" class="nice large radius blue button" >Shuffle</button>  
-
+        <hr/>
       </div>  
+        <div class = "row">
+        <div class="slidelocation">
+
+          <div id="yourLocation"></div>
+          <p>
+              <label for="amount">Distance (100m increments):</label>
+                <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+              </p>
+
+              <div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 20%; "></a></div>
+            </div><!-- End demo -->
+          </div>
+     
+
+
     </div>
 
     <div id = "footer" class= "container">
