@@ -12,6 +12,11 @@ get '/' do
   erb :index
 end
 
+get '/tabs' do
+  haml :tabs
+end
+
+
 # Test at <appname>.heroku.com
 
 # You can see all your app specific information this way.
