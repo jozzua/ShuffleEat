@@ -1,6 +1,6 @@
       jQuery(window).ready(function(){  
         $(initiate_geolocation);
-        $.blockUI({ message: '<img src="busy.gif" /> <h5>Shuffling... </h5><p>(Please ALLOW the location request.)</p>' });
+        $.blockUI({ message: '<img src="busy.gif" />' });
         $("#btnShfl").click(function() {
           randomThree();
         })
@@ -112,12 +112,10 @@
       function handle_geolocation_query(position){  
         lat = position.coords.latitude;
         lon = position.coords.longitude;
-        yourlocation = "<p> Your Location:" + lon + ' longitude, ' + lat + " latitude</p>"
-        $("#yourLocation p").replaceWith(yourlocation);
  
 
         /* Query foursquare API for venue recommendations near the current location. */
-        $.getJSON('https://api.foursquare.com/v2/venues/explore?ll=' +lat +',' +lon +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=food&radius=' + rad, function(data) {
+        $.getJSON('https://api.foursquare.com/v3/venues/explore?ll=' +lat +',' +lon +'&client_id=GJALQBJ4F1IQOEFLPHJ5GB1UR4DDZW4JZQEPQCMGZS5DL4LF&client_secret=0UUEFZIPH5LTM5IKLBXRYPKVGUPGZFDTD0HFMU2UOOX4FFVN&v=20120329&section=food', function(data) {
           venues = data['response']['groups'][0]['items'];
           /*  Find nearest venues. */
             $.shuffle(venues);
