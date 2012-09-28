@@ -129,7 +129,7 @@
                   + valueOrDefault(entry['venue']['location']['crossStreet'])  + ' ' 
                   + valueOrDefault(entry['venue']['contact']['formattedPhone'])  + ' '
                   + '(' + entry['venue']['location']['distance']  + 'm)'+
-            '</p><hr/></venue-item>';
+            '</p></venue-item>';
             $(content).appendTo("#names");
             randomThree();
             $.unblockUI();
